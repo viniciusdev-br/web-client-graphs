@@ -1,3 +1,12 @@
+import { MainGrafos } from "./components/MainGrafos/Index";
+import { ButtonStart } from "./components/ButtonStart/Index";
+import { Header } from "./components/Header/Index";
+
 export function App() {
-    return <h1 className="text-2xl">Hello world</h1>;
+    return (
+        <>
+            <Header />
+            <MainGrafos/>
+        </>
+    );
 }
