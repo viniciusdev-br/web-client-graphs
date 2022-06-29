@@ -1,5 +1,6 @@
 import { GraphMatrixRowProps } from "../types";
 
-export type GraphFormTableProps = {
+export type GraphFormProps = {
   edgeMatrix: GraphMatrixRowProps[];
+  setEdgeMatrix: (matrix: GraphMatrixRowProps[]) => void;
 };

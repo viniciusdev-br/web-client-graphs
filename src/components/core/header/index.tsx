@@ -1,10 +1,11 @@
+import { Flex } from "@chakra-ui/react";
 import LogoImg from "../../../assets/logo-ufpa-white.svg";
 import { Container } from "../container";
-import { HeaderNavbar, HeaderNavbarList, StyledHeader } from "./styles";
+import { HeaderNavbar, HeaderNavbarList } from "./styles";
 
 export function Header() {
   return (
-    <StyledHeader>
+    <Flex w="full" p="4" bg="purple.700">
       <Container>
         <HeaderNavbar>
           <img src={LogoImg} />
@@ -16,6 +17,6 @@ export function Header() {
           </HeaderNavbarList>
         </HeaderNavbar>
       </Container>
-    </StyledHeader>
+    </Flex>
   );
 }

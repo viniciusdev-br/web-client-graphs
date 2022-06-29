@@ -1,11 +1,5 @@
 import styled from "styled-components";
 
-export const StyledHeader = styled.header`
-  width: 100%;
-  background: #4c00bf;
-  padding: 0.5rem;
-`;
-
 export const HeaderNavbar = styled.nav`
   display: flex;
   justify-content: space-between;

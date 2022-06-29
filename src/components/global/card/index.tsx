@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { Collapse, Text, useDisclosure } from "@chakra-ui/react";
 import { FiChevronRight } from "react-icons/fi";
 
 import {
@@ -11,24 +12,25 @@ import {
 import { CardProps } from "./types";
 
 export function Card({ children, title, expansive }: CardProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, onToggle } = useDisclosure();
 
   return (
     <CardContainer>
       {expansive && (
-        <CardContainerHeader
-          onClick={() => setIsOpen(!isOpen)}
-          isExpanded={isOpen}
-        >
-          <h3>{title}</h3>
+        <CardContainerHeader onClick={onToggle} isExpanded={isOpen}>
+          <Text fontSize="lg" fontWeight="semibold">
+            {title}
+          </Text>
 
           <FiChevronRight size={24} />
         </CardContainerHeader>
       )}
 
-      <CardContainerContent isExpanded={isOpen}>
-        {children}
-      </CardContainerContent>
+      <Collapse in={isOpen}>
+        <CardContainerContent isExpanded={isOpen}>
+          {children}
+        </CardContainerContent>
+      </Collapse>
     </CardContainer>
   );
 }

@@ -15,6 +15,7 @@ export const CardContainerHeader = styled.div<{
   justify-content: space-between;
   padding: 2rem;
   width: 100%;
+  user-select: none;
 
   h3 {
     font-weight: 600;
@@ -30,8 +31,6 @@ export const CardContainerHeader = styled.div<{
 export const CardContainerContent = styled.div<{
   isExpanded: boolean;
 }>`
-  transition: height 300ms ease;
-  height: ${({ isExpanded }) => isExpanded && "0"};
   overflow: hidden;
-  padding: 0 2rem ${({ isExpanded }) => !isExpanded && "2rem"};
+  padding: 0 2rem ${({ isExpanded }) => isExpanded && "2rem"};
 `;

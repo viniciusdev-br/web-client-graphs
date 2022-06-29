@@ -1,16 +1,18 @@
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
 
-import { Button } from "../../../global/button";
+import { Text, Button } from "@chakra-ui/react";
 
 import { Card } from "../../../global/card";
-import { Input } from "../../../global/input";
 import { GraphFormTable } from "./graph-form-table";
 
 import { GraphFormContainer, GraphFormRow } from "./styles";
-import { GraphFormTableProps } from "./types";
+import { GraphFormDialog } from "./graph-form-dialog";
+import { GraphFormProps } from "./types";
 
-export function GraphForm({ edgeMatrix }: GraphFormTableProps) {
+export function GraphForm({ edgeMatrix, setEdgeMatrix }: GraphFormProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const { register, control, handleSubmit } = useForm();
 
   function handleSubmitFirstStep(data: any) {
@@ -19,7 +21,9 @@ export function GraphForm({ edgeMatrix }: GraphFormTableProps) {
 
   return (
     <GraphFormContainer>
-      <h2>Preencha os dados abaixo</h2>
+      <Text fontWeight="bold" fontSize="lg">
+        Preencha os dados abaixo
+      </Text>
 
       <Card title="Passo 1 de 2" expansive>
         <form onSubmit={handleSubmit(handleSubmitFirstStep)}>
@@ -50,10 +54,10 @@ export function GraphForm({ edgeMatrix }: GraphFormTableProps) {
             />
           </GraphFormRow>
           <GraphFormRow>
-            <label htmlFor="edges-have-weight">As arestas tem pesos?</label>
+            <label htmlFor="graph-weighted">Grafo ponderado?</label>
             <Controller
               control={control}
-              name="edges-have-weight"
+              name="is-graph-weighted"
               render={({ field: { onChange, onBlur, value, name, ref } }) => (
                 <Select
                   value={value}
@@ -75,76 +79,22 @@ export function GraphForm({ edgeMatrix }: GraphFormTableProps) {
               )}
             />
           </GraphFormRow>
-          <GraphFormRow>
-            <label htmlFor="edges-quantity">Informe o número de vértices</label>
-            <Input
-              type="number"
-              placeholder="Digite o número de vértices"
-              {...register("edges-quantity")}
-            />
-          </GraphFormRow>
-          <Button type="submit">Prosseguir</Button>
+          <GraphFormTable setIsOpen={setIsOpen} edgeMatrix={edgeMatrix} />
+          <Button type="submit" colorScheme="purple">
+            Processar
+          </Button>
         </form>
       </Card>
 
-      <Card title="Passo 2 de 2" expansive>
-        <form onSubmit={handleSubmit(handleSubmitFirstStep)}>
-          <GraphFormTable edgeMatrix={edgeMatrix} />
-          {/* <GraphFormRow>
-            <label htmlFor="start-edge">Selecione o vértice de partida</label>
-            <Controller
-              control={control}
-              name="start-edge"
-              render={({ field: { onChange, onBlur, value, name, ref } }) => (
-                <Select
-                  value={value}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  name={name}
-                  ref={ref}
-                  options={[
-                    {
-                      value: "a",
-                      label: "A",
-                    },
-                    {
-                      value: "b",
-                      label: "B",
-                    },
-                  ]}
-                />
-              )}
-            />
-          </GraphFormRow>
-          <GraphFormRow>
-            <label htmlFor="final-edge">Selecione o vértice de chegada</label>
-            <Controller
-              control={control}
-              name="final-edge"
-              render={({ field: { onChange, onBlur, value, name, ref } }) => (
-                <Select
-                  value={value}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  name={name}
-                  ref={ref}
-                  options={[
-                    {
-                      value: "a",
-                      label: "A",
-                    },
-                    {
-                      value: "b",
-                      label: "B",
-                    },
-                  ]}
-                />
-              )}
-            />
-          </GraphFormRow> */}
-          <Button type="submit">Processar</Button>
-        </form>
-      </Card>
+      {isOpen && (
+        <GraphFormDialog
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          onChange={(edge) => {
+            setEdgeMatrix([...edgeMatrix, edge]);
+          }}
+        />
+      )}
     </GraphFormContainer>
   );
 }

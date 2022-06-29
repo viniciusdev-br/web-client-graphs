@@ -13,7 +13,7 @@ export function HomePage() {
     <Layout>
       <Container>
         <HomeWrapper>
-          <GraphForm edgeMatrix={edgeMatrix} />
+          <GraphForm edgeMatrix={edgeMatrix} setEdgeMatrix={setEdgeMatrix} />
         </HomeWrapper>
       </Container>
     </Layout>
