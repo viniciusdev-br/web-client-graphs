@@ -13,10 +13,61 @@ import { GraphFormProps } from "./types";
 
 export function GraphForm({ edgeMatrix, setEdgeMatrix }: GraphFormProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [respota, setResposta] = useState({});
   const { register, control, handleSubmit } = useForm();
 
   function handleSubmitFirstStep(data: any) {
     console.log(data);
+  }
+
+  let objteste = {
+    "oriented": true,
+    "weighted": true,
+    "size": 0,
+    "requisito": 0,
+    "selected_vertex": "string",
+    "selected_vertex2": "string",
+    "edges": [
+      {
+        "start": "string",
+        "end": "string",
+        "weight": 0
+      }
+    ]
+  }
+
+  let MyObj : string=`{
+    "oriented": true,
+    "weighted": true,
+    "size": 0,
+    "requisito": 0,
+    "selected_vertex": "string",
+    "selected_vertex2": "string",
+    "edges": [
+      {
+        "start": "string",
+        "end": "string",
+        "weight": 0
+      }
+    ]
+  }`
+
+  function handleClick() {
+    fetch('http://127.0.0.1:8000/teste', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: new Headers({
+        'Access-Control-Allow-Origin': 'true',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }),
+      body: objteste
+    }).then(response => {
+      console.log('Tipo -----------------------', typeof(objteste))
+      console.log('-------------------------------------------------')
+      setResposta(response.json())
+      console.log(respota);
+    })
   }
 
   return (
@@ -80,7 +131,7 @@ export function GraphForm({ edgeMatrix, setEdgeMatrix }: GraphFormProps) {
             />
           </GraphFormRow>
           <GraphFormTable setIsOpen={setIsOpen} edgeMatrix={edgeMatrix} />
-          <Button type="submit" colorScheme="purple">
+          <Button type="submit" colorScheme="purple" onClick={handleClick}>
             Processar
           </Button>
         </form>
