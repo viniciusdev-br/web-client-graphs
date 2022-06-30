@@ -9,65 +9,17 @@ import { GraphFormTable } from "./graph-form-table";
 
 import { GraphFormContainer, GraphFormRow } from "./styles";
 import { GraphFormDialog } from "./graph-form-dialog";
-import { GraphFormProps } from "./types";
+import { useGraphs } from "../../../../shared/hooks/use-graphs";
 
-export function GraphForm({ edgeMatrix, setEdgeMatrix }: GraphFormProps) {
+export function GraphForm() {
   const [isOpen, setIsOpen] = useState(false);
-  const [respota, setResposta] = useState({});
-  const { register, control, handleSubmit } = useForm();
 
-  function handleSubmitFirstStep(data: any) {
-    console.log(data);
-  }
+  const { edges, insertEdge, sendGraph } = useGraphs();
 
-  let objteste = {
-    "oriented": true,
-    "weighted": true,
-    "size": 0,
-    "requisito": 0,
-    "selected_vertex": "string",
-    "selected_vertex2": "string",
-    "edges": [
-      {
-        "start": "string",
-        "end": "string",
-        "weight": 0
-      }
-    ]
-  }
+  const { control, handleSubmit } = useForm();
 
-  let MyObj : string=`{
-    "oriented": true,
-    "weighted": true,
-    "size": 0,
-    "requisito": 0,
-    "selected_vertex": "string",
-    "selected_vertex2": "string",
-    "edges": [
-      {
-        "start": "string",
-        "end": "string",
-        "weight": 0
-      }
-    ]
-  }`
-
-  function handleClick() {
-    fetch('http://127.0.0.1:8000/teste', {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: new Headers({
-        'Access-Control-Allow-Origin': 'true',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }),
-      body: objteste
-    }).then(response => {
-      console.log('Tipo -----------------------', typeof(objteste))
-      console.log('-------------------------------------------------')
-      setResposta(response.json())
-      console.log(respota);
-    })
+  async function handleSubmitFirstStep(data: any) {
+    await sendGraph(1);
   }
 
   return (
@@ -130,8 +82,28 @@ export function GraphForm({ edgeMatrix, setEdgeMatrix }: GraphFormProps) {
               )}
             />
           </GraphFormRow>
-          <GraphFormTable setIsOpen={setIsOpen} edgeMatrix={edgeMatrix} />
-          <Button type="submit" colorScheme="purple" onClick={handleClick}>
+          <GraphFormRow>
+            <label htmlFor="requisito">Requisito?</label>
+            <Controller
+              control={control}
+              name="requisito"
+              render={({ field: { onChange, onBlur, value, name, ref } }) => (
+                <Select
+                  value={value}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  name={name}
+                  ref={ref}
+                  options={new Array(12).fill(0).map((_, i) => ({
+                    label: `Requisito ${i + 1}`,
+                    value: i + 1,
+                  }))}
+                />
+              )}
+            />
+          </GraphFormRow>
+          <GraphFormTable setIsOpen={setIsOpen} edgeMatrix={edges} />
+          <Button type="submit" colorScheme="purple">
             Processar
           </Button>
         </form>
@@ -142,7 +114,7 @@ export function GraphForm({ edgeMatrix, setEdgeMatrix }: GraphFormProps) {
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           onChange={(edge) => {
-            setEdgeMatrix([...edgeMatrix, edge]);
+            insertEdge(edge);
           }}
         />
       )}

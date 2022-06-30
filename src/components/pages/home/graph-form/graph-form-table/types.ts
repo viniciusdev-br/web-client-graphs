@@ -1,6 +1,6 @@
-import { GraphMatrixRowProps } from "../../types";
+import { Edge } from "../../../../../shared/models/edge";
 
 export type GraphFormTableProps = {
-  edgeMatrix: GraphMatrixRowProps[];
+  edgeMatrix: Edge[];
   setIsOpen: (isOpen: boolean) => void;
 };

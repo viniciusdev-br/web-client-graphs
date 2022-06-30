@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { FiPlus } from "react-icons/fi";
+import { FiPlus, FiX } from "react-icons/fi";
 
 import { Button, Box, Text } from "@chakra-ui/react";
 
@@ -28,6 +27,7 @@ export function GraphFormTable({ edgeMatrix, setIsOpen }: GraphFormTableProps) {
             <th>Vértice de partida</th>
             <th>Vértice de chegada</th>
             <th>Peso</th>
+            <th>Remover</th>
           </tr>
         </Box>
         <Box
@@ -45,8 +45,13 @@ export function GraphFormTable({ edgeMatrix, setIsOpen }: GraphFormTableProps) {
           {edgeMatrix.map((row, index) => (
             <tr key={index}>
               <td>{row.start}</td>
-              <td>{row.final}</td>
+              <td>{row.end}</td>
               <td>{row.weight}</td>
+              <td>
+                <Button colorScheme="red">
+                  <FiX />
+                </Button>
+              </td>
             </tr>
           ))}
         </Box>

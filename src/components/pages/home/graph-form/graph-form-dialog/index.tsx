@@ -10,11 +10,7 @@ type GraphFormDialogState = {
   "edge-weight": number;
 };
 
-export function GraphFormDialog({
-  isOpen,
-  setIsOpen,
-  onChange,
-}: GraphFormDialogProps) {
+export function GraphFormDialog({ setIsOpen, onChange }: GraphFormDialogProps) {
   const {
     register,
     handleSubmit,
@@ -24,7 +20,7 @@ export function GraphFormDialog({
   function handleSubmitEdge(data: GraphFormDialogState) {
     onChange({
       start: data["start-vertex-name"].toUpperCase(),
-      final: data["final-vertex-name"].toUpperCase(),
+      end: data["final-vertex-name"].toUpperCase(),
       weight: data["edge-weight"],
     });
     setIsOpen(false);
