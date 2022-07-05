@@ -19,6 +19,7 @@ export function GraphFormDialog({ setIsOpen, onChange }: GraphFormDialogProps) {
 
   function handleSubmitEdge(data: GraphFormDialogState) {
     onChange({
+      id: Math.random().toString(32).substring(2, 9),
       start: data["start-vertex-name"].toUpperCase(),
       end: data["final-vertex-name"].toUpperCase(),
       weight: data["edge-weight"],
@@ -37,6 +38,7 @@ export function GraphFormDialog({ setIsOpen, onChange }: GraphFormDialogProps) {
       display="flex"
       justifyContent="center"
       alignItems="center"
+      zIndex="modal"
     >
       <Box bg="white" borderRadius="lg" p="8" w="lg">
         <Flex alignItems="center" justifyContent="space-between" mb="4">

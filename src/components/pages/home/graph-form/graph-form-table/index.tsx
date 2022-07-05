@@ -4,8 +4,11 @@ import { Button, Box, Text } from "@chakra-ui/react";
 
 import { GraphFormTableProps } from "./types";
 import { GraphFormTableHeader, GraphTable } from "./styles";
+import { useGraphs } from "../../../../../shared/hooks/use-graphs";
 
 export function GraphFormTable({ edgeMatrix, setIsOpen }: GraphFormTableProps) {
+  const { removeEdge } = useGraphs();
+
   return (
     <div>
       <GraphFormTableHeader>
@@ -42,13 +45,18 @@ export function GraphFormTable({ edgeMatrix, setIsOpen }: GraphFormTableProps) {
             },
           }}
         >
-          {edgeMatrix.map((row, index) => (
-            <tr key={index}>
+          {edgeMatrix.map((row) => (
+            <tr key={row.id}>
               <td>{row.start}</td>
               <td>{row.end}</td>
               <td>{row.weight}</td>
               <td>
-                <Button colorScheme="red">
+                <Button
+                  colorScheme="red"
+                  onClick={() => {
+                    removeEdge(row.id);
+                  }}
+                >
                   <FiX />
                 </Button>
               </td>

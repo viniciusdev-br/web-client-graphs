@@ -1,13 +1,11 @@
 import { ReactNode } from "react";
 import { Edge } from "../../models/edge";
 
-export type RequisitoProps = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-
 export type GraphModel = {
-  oriented: boolean;
-  weighted: boolean;
+  oriented: number;
+  weighted: number;
   size: number;
-  requisito: RequisitoProps;
+  requirement: number;
   selected_vertex: string;
   selected_vertex2: string;
   edges: Array<Edge>;
@@ -15,10 +13,15 @@ export type GraphModel = {
 
 export type GraphContextProps = {
   edges: Edge[];
-  options: Omit<GraphModel, "edges" | "requisito">;
+  vertexes: string[];
+  outputs: string[];
+  graphImageBytes: string;
+  outputImageBytes: string;
+  options: Omit<GraphModel, "edges" | "size" | "weighted">;
   insertEdge(edge: Edge): void;
-  sendGraph(requisito: RequisitoProps): Promise<void>;
-  changeOptions(options: Omit<GraphModel, "edges">): void;
+  removeEdge(edge_id: string): void;
+  sendGraph(): Promise<void>;
+  changeOptions(options: Omit<GraphModel, "edges" | "size" | "weighted">): void;
 };
 
 export type GraphProviderProps = {

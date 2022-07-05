@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import Select from "react-select";
 
-import { Text, Button } from "@chakra-ui/react";
+import { Button, Select, Flex } from "@chakra-ui/react";
 
 import { Card } from "../../../global/card";
 import { GraphFormTable } from "./graph-form-table";
@@ -14,99 +12,105 @@ import { useGraphs } from "../../../../shared/hooks/use-graphs";
 export function GraphForm() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { edges, insertEdge, sendGraph } = useGraphs();
-
-  const { control, handleSubmit } = useForm();
-
-  async function handleSubmitFirstStep(data: any) {
-    await sendGraph(1);
-  }
+  const { edges, insertEdge, sendGraph, options, changeOptions, vertexes } =
+    useGraphs();
 
   return (
     <GraphFormContainer>
-      <Text fontWeight="bold" fontSize="lg">
-        Preencha os dados abaixo
-      </Text>
-
-      <Card title="Passo 1 de 2" expansive>
-        <form onSubmit={handleSubmit(handleSubmitFirstStep)}>
+      <Card title="Preencha os dados abaixo">
+        <Flex direction="column" gridGap="8">
           <GraphFormRow>
-            <label htmlFor="graph-orientation">Grafo orientado?</label>
-            <Controller
-              control={control}
-              name="is-graph-orientation"
-              render={({ field: { onChange, onBlur, value, name, ref } }) => (
-                <Select
-                  value={value}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  name={name}
-                  ref={ref}
-                  options={[
-                    {
-                      value: true,
-                      label: "Sim",
-                    },
-                    {
-                      value: false,
-                      label: "Não",
-                    },
-                  ]}
-                />
-              )}
-            />
+            <label htmlFor="oriented">Grafo orientado?</label>
+            <Select
+              name="oriented"
+              value={options.oriented}
+              onChange={(e) => {
+                changeOptions({
+                  ...options,
+                  oriented: Number(e.target.value),
+                });
+              }}
+            >
+              <option value={1}>Sim</option>
+              <option value={0}>Não</option>
+            </Select>
           </GraphFormRow>
           <GraphFormRow>
-            <label htmlFor="graph-weighted">Grafo ponderado?</label>
-            <Controller
-              control={control}
-              name="is-graph-weighted"
-              render={({ field: { onChange, onBlur, value, name, ref } }) => (
-                <Select
-                  value={value}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  name={name}
-                  ref={ref}
-                  options={[
-                    {
-                      value: true,
-                      label: "Sim",
-                    },
-                    {
-                      value: false,
-                      label: "Não",
-                    },
-                  ]}
-                />
-              )}
-            />
+            <label htmlFor="requirement">Requisito?</label>
+            <Select
+              name="requirement"
+              value={options.requirement}
+              onChange={(e) => {
+                changeOptions({
+                  ...options,
+                  requirement: Number(e.target.value),
+                });
+              }}
+            >
+              {new Array(12).fill(0).map((_, i) => (
+                <option key={i} value={i + 1}>
+                  Requisito {i + 1}
+                </option>
+              ))}
+            </Select>
           </GraphFormRow>
-          <GraphFormRow>
-            <label htmlFor="requisito">Requisito?</label>
-            <Controller
-              control={control}
-              name="requisito"
-              render={({ field: { onChange, onBlur, value, name, ref } }) => (
+          {[1, 2, 3].includes(options.requirement) && (
+            <Flex gridGap="4">
+              <GraphFormRow>
+                <label htmlFor="selected_vertex">Vertice 1</label>
                 <Select
-                  value={value}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  name={name}
-                  ref={ref}
-                  options={new Array(12).fill(0).map((_, i) => ({
-                    label: `Requisito ${i + 1}`,
-                    value: i + 1,
-                  }))}
-                />
+                  name="selected_vertex"
+                  value={options.selected_vertex}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    changeOptions({
+                      ...options,
+                      selected_vertex: e.target.value,
+                    });
+                  }}
+                >
+                  <option>Selecione um vértice</option>
+                  {vertexes.map((v) => (
+                    <option key={Math.random().toString(32)} value={v}>
+                      {v}
+                    </option>
+                  ))}
+                </Select>
+              </GraphFormRow>
+              {options.requirement === 1 && (
+                <GraphFormRow>
+                  <label htmlFor="selected_vertex2">Vertice 2</label>
+                  <Select
+                    name="selected_vertex2"
+                    value={options.selected_vertex2}
+                    onChange={(e) => {
+                      changeOptions({
+                        ...options,
+                        selected_vertex2: e.target.value,
+                      });
+                    }}
+                  >
+                    <option>Selecione um vértice</option>
+                    {vertexes.map((v) => (
+                      <option key={Math.random().toString(32)} value={v}>
+                        {v}
+                      </option>
+                    ))}
+                  </Select>
+                </GraphFormRow>
               )}
-            />
-          </GraphFormRow>
+            </Flex>
+          )}
           <GraphFormTable setIsOpen={setIsOpen} edgeMatrix={edges} />
-          <Button type="submit" colorScheme="purple">
+          <Button
+            colorScheme="purple"
+            onClick={() => {
+              sendGraph();
+            }}
+          >
             Processar
           </Button>
-        </form>
+        </Flex>
       </Card>
 
       {isOpen && (
