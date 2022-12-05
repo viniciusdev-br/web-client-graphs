@@ -93,7 +93,7 @@ e conexo
                 
             </Select>
           </GraphFormRow>
-          {[1, 2, 3].includes(options.requirement) && (
+          {[1, 2, 3, 11].includes(options.requirement) && (
             <Flex gridGap="4">
               <GraphFormRow>
                 <label htmlFor="selected_vertex">Vertice 1</label>
@@ -116,7 +116,7 @@ e conexo
                   ))}
                 </Select>
               </GraphFormRow>
-              {options.requirement === 1 && (
+              {[1, 11].includes(options.requirement) && (
                 <GraphFormRow>
                   <label htmlFor="selected_vertex2">Vertice 2</label>
                   <Select
