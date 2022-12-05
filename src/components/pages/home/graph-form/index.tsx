@@ -47,11 +47,50 @@ export function GraphForm() {
                 });
               }}
             >
-              {new Array(12).fill(0).map((_, i) => (
-                <option key={i} value={i + 1}>
-                  Requisito {i + 1}
+                <option key={0} value={1}>
+                  Requisito 1 - Existencia de uma aresta
                 </option>
-              ))}
+                <option key={2} value={2}>
+                  Requisito 2 - Grau de um vértice
+                </option>
+                <option key={3} value={3}>
+                  Requisito 3 - Adjacência de um vértice
+                </option>
+                <option key={4} value={4}>
+                  Requisito 4 - Verificar se um grafo não-orientado é conexo.
+                </option>
+                <option key={5} value={5}>
+                  Requisito 5 -  Verificar se um dı́grafo é fracamente conexo.
+                </option>
+                <option key={6} value={6}>
+                  Requisito 6 - Verificar se um dı́grafo é unilateralmente conexo.
+                </option>
+                <option key={7} value={7}>
+                  Requisito 7 - Verificar se um dı́grafo é fortemente conexo e informar qual ou
+quais são os seus componentes fortemente conexos.
+                </option>
+                <option key={8} value={8}>
+                  Requisito 8 - Dado um grafo conexo, verificar se ele é cı́clico.
+                </option>
+                <option key={9} value={9}>
+                  Requisito 9 - Dado um dı́grafo acı́clico e conexo, informar uma ordenação
+topológica presente no dı́grafo.
+                </option>
+                <option key={10} value={10}>
+                  Requisito 10 - Dado um grafo não-orientado e conexo, verificar se ele é planar,
+2-conexo e/ou euleriano. Caso seja possı́vel, informar um ciclo
+euleriano presente no grafo.
+                </option>
+                <option key={11} value={11}>
+                  Requisito 11 - Caso seja possı́vel, encontrar um caminho mais curto (grafos
+não-ponderados) ou de menor custo (grafos ponderados) entre
+dois vértices.
+                </option>
+                <option key={12} value={12}>
+                  Requisito 12 - Encontrar uma árvore geradora mı́nima de um grafo não-orientado
+e conexo
+                </option>
+                
             </Select>
           </GraphFormRow>
           {[1, 2, 3].includes(options.requirement) && (

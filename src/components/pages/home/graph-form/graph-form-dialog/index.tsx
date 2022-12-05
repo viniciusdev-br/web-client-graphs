@@ -22,7 +22,7 @@ export function GraphFormDialog({ setIsOpen, onChange }: GraphFormDialogProps) {
       id: Math.random().toString(32).substring(2, 9),
       start: data["start-vertex-name"].toUpperCase(),
       end: data["final-vertex-name"].toUpperCase(),
-      weight: data["edge-weight"],
+      weight: data["edge-weight"] > 0 ? data["edge-weight"] : 0,
     });
     setIsOpen(false);
   }
@@ -92,7 +92,7 @@ export function GraphFormDialog({ setIsOpen, onChange }: GraphFormDialogProps) {
             <Input
               type="number"
               {...register("edge-weight", {
-                required: true,
+                required: false,
               })}
             />
             {errors["edge-weight"] && (
