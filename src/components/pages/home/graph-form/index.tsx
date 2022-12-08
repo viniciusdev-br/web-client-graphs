@@ -90,10 +90,34 @@ dois vértices.
                   Requisito 12 - Encontrar uma árvore geradora mı́nima de um grafo não-orientado
 e conexo
                 </option>
+                <option key={13} value={13}>
+                  Requisito 13 - Classificação de arestas
+                </option>
+                <option key={14} value={14}>
+                  Requisito 14 - Verificação de ciclo
+                </option>
+                <option key={15} value={15}>
+                  Requisito 15 - Ordenação Topológica
+                </option>
+                <option key={16} value={16}>
+                  Requisito 16 - Componentes Fortes
+                </option>
+                <option key={17} value={17}>
+                  Requisito 17 - Dijkstra
+                </option>
+                <option key={18} value={18}>
+                  Requisito 18 - Prim
+                </option>
+                <option key={19} value={19}>
+                  Requisito 19 - Print lista de adjacências 
+                </option>
+                <option key={20} value={20}>
+                  Requisito 20 - Retornar o número de vértices e de arestas
+                </option>
                 
             </Select>
           </GraphFormRow>
-          {[1, 2, 3, 11].includes(options.requirement) && (
+          {[1, 2, 3, 11, 13, 14, 15, 16, 17, 18].includes(options.requirement) && (
             <Flex gridGap="4">
               <GraphFormRow>
                 <label htmlFor="selected_vertex">Vertice 1</label>

@@ -14,9 +14,10 @@ export function Terminal({ lines }: TerminalProps) {
       overflow="auto"
     >
       <List fontFamily="JetBrains Mono" fontSize="sm" color="white">
-        {lines.map((line, index) => (
-          <ListItem key={index}>{line}</ListItem>
-        ))}
+        {lines.map((line, index) => {
+            console.log(line)
+            return <ListItem key={index}>{line}</ListItem>
+        })}
         <ListItem>
           <Pipeline />
         </ListItem>
