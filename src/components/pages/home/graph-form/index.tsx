@@ -117,7 +117,7 @@ e conexo
                 
             </Select>
           </GraphFormRow>
-          {[1, 2, 3, 11, 13, 14, 15, 16, 17, 18].includes(options.requirement) && (
+          {[1, 2, 3, 11, 12, 13, 14, 15, 16, 17, 18].includes(options.requirement) && (
             <Flex gridGap="4">
               <GraphFormRow>
                 <label htmlFor="selected_vertex">Vertice 1</label>

@@ -57,6 +57,11 @@ export function GraphProvider({ children }: GraphProviderProps) {
       return setOutputImageBytes(res.data.data);
     }
 
+    if (options.requirement === 18){
+      setOutputs([...outputs, res.data.result])
+      return setOutputImageBytes(res.data.data);
+    }
+
     return setOutputs([...outputs, res.data.result]);
   }
 
