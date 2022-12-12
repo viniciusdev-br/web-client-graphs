@@ -82,8 +82,7 @@ topológica presente no dı́grafo.
 euleriano presente no grafo.
                 </option>
                 <option key={11} value={11}>
-                  Requisito 11 - Caso seja possı́vel, encontrar um caminho mais curto (grafos
-não-ponderados) ou de menor custo (grafos ponderados) entre
+                  Requisito 11 - Caso seja possı́vel, encontrar um caminho mais curto 
 dois vértices.
                 </option>
                 <option key={12} value={12}>
@@ -140,7 +139,7 @@ e conexo
                   ))}
                 </Select>
               </GraphFormRow>
-              {[1, 11].includes(options.requirement) && (
+              {[1].includes(options.requirement) && (
                 <GraphFormRow>
                   <label htmlFor="selected_vertex2">Vertice 2</label>
                   <Select
