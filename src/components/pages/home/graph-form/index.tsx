@@ -82,8 +82,7 @@ topológica presente no dı́grafo.
 euleriano presente no grafo.
                 </option>
                 <option key={11} value={11}>
-                  Requisito 11 - Caso seja possı́vel, encontrar um caminho mais curto 
-dois vértices.
+                  Requisito 11 - Busca em Largura
                 </option>
                 <option key={12} value={12}>
                   Requisito 12 - Encontrar uma árvore geradora mı́nima de um grafo não-orientado
@@ -116,7 +115,7 @@ e conexo
                 
             </Select>
           </GraphFormRow>
-          {[1, 2, 3, 11, 12, 13, 14, 15, 16, 17, 18].includes(options.requirement) && (
+          {[1, 2, 3, 11, 12, 13, 14, 16, 17, 18].includes(options.requirement) && (
             <Flex gridGap="4">
               <GraphFormRow>
                 <label htmlFor="selected_vertex">Vertice 1</label>
